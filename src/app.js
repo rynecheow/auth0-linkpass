@@ -6,6 +6,8 @@ const compression = require('compression');
 const cors = require('cors');
 const passport = require('passport');
 const httpStatus = require('http-status');
+const cookieParser = require('cookie-parser');
+// const { expressCspHeader, NONCE } = require('express-csp-header');
 const config = require('./config/config');
 const morgan = require('./config/morgan');
 const { jwtStrategy } = require('./config/passport');
@@ -33,6 +35,15 @@ app.use(express.urlencoded({ extended: true }));
 // sanitize request data
 app.use(xss());
 app.use(mongoSanitize());
+
+app.use(cookieParser());
+// app.use(
+//   expressCspHeader({
+//     directives: {
+//       'script-src': [NONCE],
+//     },
+//   })
+// );
 
 // gzip compression
 app.use(compression());
